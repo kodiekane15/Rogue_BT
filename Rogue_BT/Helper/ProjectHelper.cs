@@ -11,12 +11,21 @@ namespace Rogue_BT.Helper
         private ApplicationDbContext db = new ApplicationDbContext();
         private UserRoleHelper userRoleHelper = new UserRoleHelper();
         //What do we need to do?
+        public bool IsUserOnProject(string userId, int projectId)
+        {
+            Project project = db.Projects.Find(projectId);
+            return project.Users.Any(u => u.Id == userId);
+        }
         //Add one or more users to a project
         public void AddUserToProject(string userId, int projectId)
         {
-            Project project = db.Projects.Find(projectId);
-            var user = db.Users.Find(userId);
-            project.Users.Add(user);            
+            if (!IsUserOnProject(userId, projectId))
+            {
+                Project project = db.Projects.Find(projectId);
+                var user = db.Users.Find(userId);
+                project.Users.Add(user);
+                db.SaveChanges();
+            }
         }
         //Remove one or more users from a project
         public bool RemoveUserFromProject(string userId, int projectId)
@@ -48,13 +57,13 @@ namespace Rogue_BT.Helper
             return resultList;
         }
         //Boolean method IsUserOnProject
-        public bool IsUserOnProject(string userId, int projectId)
-        {
-            Project project = db.Projects.Find(projectId);
-            var user = db.Users.Find(userId);
+        //public bool IsUserOnProject(string userId, int projectId)
+        //{
+        //    Project project = db.Projects.Find(projectId);
+        //    var user = db.Users.Find(userId);
             
-            return project.Users.Contains(user);
-        }
+        //    return project.Users.Contains(user);
+        //}
         //OPTIONAL: List users on a project that occupy a specific role
         //Filters the list of users on a project by role - use to populate ticket assignment dropdown
         public List<ApplicationUser> ListUsersOnProjectInRole(int projectId, string roleName) 
