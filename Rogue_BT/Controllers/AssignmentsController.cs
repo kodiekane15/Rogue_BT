@@ -93,7 +93,7 @@ namespace Rogue_BT.Controllers
                     projectHelper.AddUserToProject(userId, projectId);
                 }
             }
-      
+            TempData["Message"] = "Role has been successfully updated!";
             
             return RedirectToAction("ManageProjectUsers");
         }

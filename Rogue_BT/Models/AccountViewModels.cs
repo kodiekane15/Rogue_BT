@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace Rogue_BT.Models
 {
@@ -91,6 +92,8 @@ namespace Rogue_BT.Models
         [StringLength(40, ErrorMessage = "The {0} must be at least {2} characters long and at most {1} long.", MinimumLength = 2)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        public HttpPostedFileBase Avatar { get; set; }
     }
 
     public class ResetPasswordViewModel

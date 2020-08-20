@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNet.Identity
+@using Rogue_BT.Helper
+@model Rogue_BT.Models.ApplicationUser
+@{
+	var userHelper = new UserHelper();
+	var fileUploadvalidator = new FileUploadValidator();
+}@{
+	ViewBag.Title = "View";
+}
+@if (User.Identity.IsAuthenticated)
+{
+	<img src="@Model.AvatarPath" class="img-circle img-md" />
+	@Html.ActionLink("Hello " + userHelper.GetFullName(User.Identity.GetUserId()) + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+}

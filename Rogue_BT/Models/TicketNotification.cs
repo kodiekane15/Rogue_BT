@@ -18,6 +18,7 @@ namespace Rogue_BT.Models
         #endregion
 
         #region Actual Property
+        public string Subject { get; set; }
         public string Message { get; set; }
         public DateTime Created { get; set; }
         public bool IsRead { get; set; }

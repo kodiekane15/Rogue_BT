@@ -48,6 +48,9 @@ namespace Rogue_BT.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.TicketPriorityId = new SelectList(db.TicketPriorities, "Id", "Name");
+
+            ViewBag.TicketTypeId = new SelectList(db.TicketTypes, "Id", "Name");
             return View(project);
         }
 
@@ -63,7 +66,7 @@ namespace Rogue_BT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Created,IsArchived")] Project project)
+        public ActionResult Create([Bind(Include = "Id,Name,Created")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -173,10 +176,11 @@ namespace Rogue_BT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Created,IsArchived")] Project project)
+        public ActionResult Edit([Bind(Include = "Id,Name,IsArchived,Created")] Project project)
         {
             if (ModelState.IsValid)
             {
+                project.Updated = DateTime.Now;
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

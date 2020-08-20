@@ -81,7 +81,7 @@ namespace Rogue_BT.Helper
         }
         //OPTIONAL: List users not on a project in a specific role
         //OPTIONAL: List projects for a specific user
-        public List<Project> ListUserProjects (string userId)
+        public List<Project> ListUserProjects(string userId)
         {
             var user = db.Users.Find(userId);
             var resultList = new List<Project>();

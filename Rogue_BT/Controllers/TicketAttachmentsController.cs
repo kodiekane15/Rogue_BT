@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Rogue_BT.Helper;
 using Rogue_BT.Models;
 
 namespace Rogue_BT.Controllers
@@ -13,7 +18,7 @@ namespace Rogue_BT.Controllers
     public class TicketAttachmentsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: TicketAttachments
         public ActionResult Index()
         {
@@ -49,18 +54,40 @@ namespace Rogue_BT.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TicketId,UserId,FilePath,Description,Created")] TicketAttachment ticketAttachment)
+        public ActionResult Create([Bind(Include = "TicketId,FileName")] TicketAttachment ticketAttachment, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
+                
+                ticketAttachment.Created = DateTime.Now;
+                ticketAttachment.UserId = User.Identity.GetUserId();
+                //Check that there is an incoming file 
+                if (file == null)
+                {
+                    TempData["Error"] = "You must supply a file!";
+                    return RedirectToAction("Dashboard", "Tickets", new { id = ticketAttachment.TicketId });
+                }
+
+                //Step 1: Run the file through the validator; is it of proper size and extension
+                if (FileUploadValidator.IsWebFriendlyImage(file) || FileUploadValidator.IsWebFriendlyFile(file))
+                {
+                    //Step 2: Isolate, slug and stamp file name
+                    var fileName = FileStamp.MakeUnique(file.FileName);
+                                   
+                  //Step 3: assign the FilePath property and save the physical file
+                  var serverFolder = WebConfigurationManager.AppSettings["DefaultServerFolder"];
+                    file.SaveAs(Path.Combine(Server.MapPath(serverFolder), fileName));
+                    ticketAttachment.FilePath = $"{serverFolder}{fileName}";
+                }
+
                 db.TicketAttachments.Add(ticketAttachment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Dashboard", "Tickets", new { id = ticketAttachment.TicketId });
             }
+            TempData["Error"] = "The model was invalid for some reason";
+            return RedirectToAction("Dashboard", "Tickets", new { id = ticketAttachment.TicketId });
 
-            ViewBag.TicketId = new SelectList(db.Tickets, "Id", "SubmitterId", ticketAttachment.TicketId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "FirstName", ticketAttachment.UserId);
-            return View(ticketAttachment);
+       
         }
 
         // GET: TicketAttachments/Edit/5

@@ -45,7 +45,7 @@
 		<th>
 			@Html.DisplayName("Role")
 		</th>
-		
+
 	</tr>
 
 	@foreach (var person in Model)
@@ -57,11 +57,26 @@
 			<td>
 				@roleHelper.ListUserRoles(person.Id).FirstOrDefault()
 			</td>
-			</tr>
+		</tr>
 	}
 
 </table>
 
+
+
+@section scripts
+{	<script>
+	var message = '@TempData["Mesaage"]';
+	if(message != "")
+	{
+	Swal.fire(
+	'Role Change identified',
+	message,
+	'success'
+	)
+	}
+	</script>
+}
 
 
 

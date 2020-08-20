@@ -1,0 +1,178 @@
+﻿
+@{
+	ViewBag.Title = "Log in";
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>AdminLTE 3 | Log in</title>
+	<!-- Tell the browser to be responsive to screen width -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Font Awesome -->
+	<link href="~/Content/all.min.css" rel="stylesheet" />
+	<!-- Ionicons -->
+	<link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- icheck bootstrap -->
+	<link href="~/Content/icheck-bootstrap.min.css" rel="stylesheet" />
+	<!-- Theme style -->
+	<link href="~/Content/adminlte.min.css" rel="stylesheet" />
+	<!-- Google Font: Source Sans Pro -->
+	<link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition login-page">
+	<div class="login-box">
+		<div class="login-logo">
+			<p><b>Bug Tracker</b></p>
+		</div>
+		<!-- /.login-logo -->
+		<div class="card">
+			<div class="card-body login-card-body">
+				<h4 class="login-box-msg">Sign in to start your session</h4>
+
+
+				<section id="loginForm">
+					<div class="row">
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+
+							@Html.Hidden("emailKey", "DemoAdminEmail")
+							@Html.Hidden("passwordKey", "DemoPassword")
+
+							<div class="row">
+
+								<!-- /.col -->
+								<div class="col">
+									<button type="submit" class="btn btn-success btn-block">Admin Login</button>
+								</div>
+								<!-- /.col -->
+							</div>
+
+						}
+					</div>
+					<br />
+					<div class="row" id="PMRow">
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("emailKey", "DemoPM1Email")
+							@Html.Hidden("passwordKey", "DemoPassword")
+							
+								<div class="col">
+									<button type="submit" class="btn btn-success btn-block">PM 1 Login</button>
+								</div>
+							
+						}
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("emailKey", "DemoPM2Email")
+							@Html.Hidden("passwordKey", "DemoPassword")
+							
+								<div class="col">
+									<button type="submit" class="btn btn-success btn-block">PM 2 Login</button>
+								</div>
+							
+						}
+
+
+					</div>
+					<br />
+					<div class="row" id="DevRow">
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("emailKey", "DemoDeveloper1Email")
+							@Html.Hidden("passwordKey", "DemoPassword")
+
+							<div class="col">
+								<button type="submit" class="btn btn-success btn-block">Dev 1 Login</button>
+							</div>
+
+						}
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("emailKey", "DemoDeveloper2Email")
+							@Html.Hidden("passwordKey", "DemoPassword")
+
+							<div class="col">
+								<button type="submit" class="btn btn-success btn-block">Dev 2 Login</button>
+							</div>
+
+						}
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("emailKey", "DemoDeveloper3Email")
+							@Html.Hidden("passwordKey", "DemoPassword")
+
+							<div class="col">
+								<button type="submit" class="btn btn-success btn-block">Dev 3 Login</button>
+							</div>
+
+						}
+
+					</div>
+					<br />
+					<div class="row" id="SubRow">
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("emailKey", "DemoSubmitter1Email")
+							@Html.Hidden("passwordKey", "DemoPassword")
+
+							<div class="col">
+								<button type="submit" class="btn btn-success btn-block">Sub 1 Login</button>
+							</div>
+
+						}
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("emailKey", "DemoSubmitter2Email")
+							@Html.Hidden("passwordKey", "DemoPassword")
+
+							<div class="col">
+								<button type="submit" class="btn btn-success btn-block">Sub 2 Login</button>
+							</div>
+
+						}
+						@using (Html.BeginForm("Demologin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+						{
+							@Html.AntiForgeryToken()
+							@Html.Hidden("emailKey", "DemoSubmitter3Email")
+							@Html.Hidden("passwordKey", "DemoPassword")
+
+							<div class="col">
+								<button type="submit" class="btn btn-success btn-block">Sub 3 Login</button>
+							</div>
+
+						}
+
+					</div>
+					
+
+				</section>
+
+
+				
+			</div>
+
+		</div>
+	</div>
+	<!-- /.login-box -->
+	<!-- jQuery -->
+	<script src="~/Scripts/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="~/Scripts/adminlte.min.js"></script>
+</body>
+</html>
+
